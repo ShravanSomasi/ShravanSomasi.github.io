@@ -1,7 +1,435 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan S. Malkovich | Car Trainer</title>
 
-<html>
-  <body>
-    Shravan was here.
-  </body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080b1a;
+            color: #f4f5ff;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(8, 11, 26, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #a78bfa;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            color: #dbe4ff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #a78bfa;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 25px 80px;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(91, 33, 182, 0.35), transparent 35%),
+                radial-gradient(circle at 80% 70%, rgba(37, 99, 235, 0.3), transparent 35%),
+                #080b1a;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
+            margin-bottom: 25px;
+            background: linear-gradient(90deg, #c4b5fd, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: #cbd5e1;
+            font-weight: normal;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 13px 28px;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #7c3aed, #2563eb);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.25);
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Sections */
+        section {
+            padding: 90px 25px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #e0e7ff;
+        }
+
+        .section-title span {
+            color: #8b5cf6;
+        }
+
+        /* About */
+        .about {
+            background: #0c1024;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+            color: #aeb9d4;
+            font-size: 1.05rem;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            padding: 35px 28px;
+            background: linear-gradient(
+                145deg,
+                rgba(124, 58, 237, 0.12),
+                rgba(37, 99, 235, 0.08)
+            );
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 18px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(139, 92, 246, 0.55);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-icon {
+            font-size: 2.3rem;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            color: #c4b5fd;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #94a3b8;
+        }
+
+        /* Interests */
+        .interests {
+            background: #080b1a;
+        }
+
+        .interest-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tag {
+            padding: 12px 20px;
+            border-radius: 30px;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(96, 165, 250, 0.25);
+            color: #bfdbfe;
+        }
+
+        /* Steak section */
+        .steak {
+            text-align: center;
+            background:
+                linear-gradient(rgba(8, 11, 26, 0.85), rgba(8, 11, 26, 0.95)),
+                radial-gradient(circle, #312e81, #080b1a);
+        }
+
+        .steak-box {
+            max-width: 700px;
+            margin: auto;
+            padding: 45px;
+            border-radius: 22px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(167, 139, 250, 0.25);
+        }
+
+        .steak-box h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #c4b5fd;
+        }
+
+        .steak-box p {
+            color: #aeb9d4;
+            font-size: 1.05rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: #050713;
+            color: #64748b;
+            border-top: 1px solid rgba(139, 92, 246, 0.15);
+        }
+
+        footer strong {
+            color: #a78bfa;
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            .nav-container {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            section {
+                padding: 70px 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .steak-box {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">JSM</div>
+
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">What I Do</a></li>
+                <li><a href="#interests">Interests</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Jonathan S. Malkovich</h1>
+            <h2>Car Trainer · Student · Lifelong Learner</h2>
+
+            <p>
+                Welcome to my personal website. I'm a car trainer with a passion
+                for learning, technology, and trying new things at Niagara.
+            </p>
+
+            <a href="#about" class="button">Explore My World</a>
+        </div>
+    </header>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">A Little <span>About Me</span></h2>
+
+            <div class="about-content">
+                <p>
+                    I'm Jonathan S. Malkovich, a car trainer who enjoys working
+                    with vehicles and helping people become more confident
+                    behind the wheel. Outside of cars, I'm always looking for
+                    something new to learn.
+                </p>
+
+                <br>
+
+                <p>
+                    At Niagara, I'm currently taking AI classes as well as
+                    basket weaving classes. It's an unusual combination, but
+                    I like having both technology and creativity in my life.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">What I <span>Do</span></h2>
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="card-icon">🚗</div>
+                    <h3>Car Training</h3>
+                    <p>
+                        I work with drivers to build confidence, improve their
+                        skills, and become more comfortable on the road.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3>Artificial Intelligence</h3>
+                    <p>
+                        I'm expanding my knowledge of AI through classes at
+                        Niagara and exploring the possibilities of modern
+                        technology.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🧺</div>
+                    <h3>Basket Weaving</h3>
+                    <p>
+                        I'm also taking basket weaving classes, because
+                        sometimes the best way to learn is to try something
+                        completely different.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="interests" class="interests">
+        <div class="container">
+            <h2 class="section-title">Things I <span>Enjoy</span></h2>
+
+            <div class="interest-list">
+                <div class="tag">🚗 Cars</div>
+                <div class="tag">🤖 AI</div>
+                <div class="tag">🧺 Basket Weaving</div>
+                <div class="tag">🎓 Learning</div>
+                <div class="tag">💡 Technology</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steak">
+        <div class="container">
+            <div class="steak-box">
+                <h3>🥩 The Three-Steak Rule</h3>
+
+                <p>
+                    One steak is good. Two steaks are better.
+                    Three different types of steak in one meal?
+                    That's how I like to do things.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>
+            © 2026 <strong>Jonathan S. Malkovich</strong> ·
+            Built with HTML & CSS
+        </p>
+    </footer>
+
+</body>
 </html>
